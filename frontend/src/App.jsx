@@ -1,73 +1,73 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-function App() {
-  const [numeros, setNumeros] = useState([])
+const LoteriaCard = ({ nome, sub, cor, qtd, max }) => {
+  const [numeros, setNumeros] = useState([]);
 
-  const gerarNumeros = () => {
-    const sorteados = []
-    while (sorteados.length < 6) {
-      const num = Math.floor(Math.random() * 60) + 1
-      if (!sorteados.includes(num)) {
-        sorteados.push(num)
-      }
+  const gerarJogo = () => {
+    const sorteados = [];
+    while (sorteados.length < qtd) {
+      const num = Math.floor(Math.random() * max) + 1;
+      if (!sorteados.includes(num)) sorteados.push(num);
     }
-    // Organiza os números do menor para o maior
-    setNumeros(sorteados.sort((a, b) => a - b))
-  }
+    setNumeros(sorteados.sort((a, b) => a - b));
+  };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px', fontFamily: 'sans-serif' }}>
-      <h1 style={{ color: '#20441a' }}>Gerador de Loteria 🍀</h1>
-      <p>Clique no botão para gerar seus números da sorte!</p>
+    <div style={{ ...styles.card, borderTop: `5px solid ${cor}` }}>
+      <h2 style={{ color: cor, margin: '10px 0', fontSize: '1.5rem', fontWeight: '900' }}>{nome}</h2>
+      <p style={{ color: '#888', fontSize: '0.9rem', marginBottom: '20px' }}>{sub}</p>
 
-      <button
-        onClick={gerarNumeros}
-        style={{
-          padding: '12px 24px',
-          fontSize: '18px',
-          backgroundColor: '#28a745',
-          color: 'white',
-          border: 'none',
-          borderRadius: '8px',
-          cursor: 'pointer',
-          boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-          marginBottom: '30px'
-        }}
-      >
-        Gerar Números
-      </button>
-
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '15px',
-        flexWrap: 'wrap'
-      }}>
-        {numeros.map((num, index) => (
-          <div
-            key={index}
-            style={{
-              width: '50px',
-              height: '50px',
-              lineHeight: '50px',
-              backgroundColor: '#fff',
-              border: '3px solid #28a745',
-              borderRadius: '50%',
-              fontSize: '20px',
-              fontWeight: 'bold',
-              color: '#28a745'
-            }}
-          >
-            {num < 10 ? `0${num}` : num}
-          </div>
-        ))}
+      <div style={styles.numerosContainer}>
+        {numeros.length > 0 ? (
+          numeros.map((n, i) => (
+            <span key={i} style={{ ...styles.bola, backgroundColor: cor }}>
+              {n < 10 ? `0${n}` : n}
+            </span>
+          ))
+        ) : (
+          <p style={styles.placeholder}>Nenhum jogo gerado ainda.<br />Clique no botão abaixo.</p>
+        )}
       </div>
 
-      {numeros.length > 0 && (
-        <p style={{ marginTop: '20px', color: '#666' }}>Boa sorte na sua aposta! 🚀</p>
-      )}
+      <button onClick={gerarJogo} style={{ ...styles.btn, backgroundColor: cor }}>
+        Gerar Jogo Otimizado
+      </button>
     </div>
-  )
+  );
+};
+
+function App() {
+  return (
+    <div style={styles.body}>
+      <header style={styles.header}>
+        <h1 style={styles.titulo}>Super Loterias API</h1>
+        <p style={styles.subtitulo}>
+          Gere combinações numéricas otimizadas via Força Bruta aliada a <br />
+          Teoremas Matemáticos e à Lei dos Grandes Números.
+        </p>
+      </header>
+
+      <main style={styles.grid}>
+        <LoteriaCard nome="MEGA-SENA" sub="Sorteia 6 de 60" cor="#20ac7b" qtd={6} max={60} />
+        <LoteriaCard nome="QUINA" sub="Sorteia 5 de 80" cor="#3b00a0" qtd={5} max={80} />
+        <LoteriaCard nome="TIMEMANIA" sub="Sorteia 10 de 80" cor="#00aa44" qtd={10} max={80} />
+        <LoteriaCard nome="LOTOMANIA" sub="Sorteia 50 de 100" cor="#ff8800" qtd={50} max={100} />
+      </main>
+    </div>
+  );
 }
 
-export default App
+const styles = {
+  body: { backgroundColor: '#0e0e10', minHeight: '100vh', padding: '40px', fontFamily: 'sans-serif', color: '#fff' },
+  header: { textAlign: 'center', marginBottom: '50px' },
+  titulo: { fontSize: '3rem', color: '#45f3ad', fontWeight: '900', textShadow: '0 0 10px rgba(69, 243, 173, 0.3)', margin: '0 0 15px 0' },
+  subtitulo: { color: '#aaa', lineHeight: '1.6', fontSize: '1.1rem' },
+  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '25px', maxWidth: '1200px', margin: '0 auto' },
+  card: { backgroundColor: '#18181b', borderRadius: '12px', padding: '25px', textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' },
+  numerosContainer: { minHeight: '120px', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '8px', margin: '20px 0' },
+  bola: { width: '35px', height: '35px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.9rem', color: '#fff' },
+  placeholder: { color: '#555', fontStyle: 'italic', fontSize: '0.85rem' },
+  btn: { padding: '15px', border: 'none', borderRadius: '8px', color: '#fff', fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem', transition: 'filter 0.2s' }
+};
+
+export default App;
