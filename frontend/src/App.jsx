@@ -54,11 +54,33 @@ const LoteriaCard = ({ nome, sub, cor, qtd, max }) => {
   );
 };
 
+// --- COMPONENTE: FOOTER (RODAPÉ) ---
+const Footer = () => {
+  return (
+    <footer id="contato" style={styles.footer}>
+      <div style={styles.footerContent}>
+        <h3 style={styles.footerTitle}>Super Loterias API</h3>
+        <p style={styles.footerText}>
+          Desenvolvido com 💻 por <strong>Eliene Fiuza</strong> | Estudante de ADS na FATEC
+        </p>
+        <p style={styles.footerTech}>
+          🛠️ Tecnologias Aplicadas: React, Vite, Node.js & Python (Backend API)
+        </p>
+        <div style={styles.contatoContainer}>
+          <p style={styles.footerContato}>📧 Contato para parcerias e feedback:</p>
+          {/* Aqui você pode colocar seu email real depois */}
+          <a href="mailto:seuemail@exemplo.com" style={styles.emailBtn}>Enviar E-mail</a>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
 // --- COMPONENTE PRINCIPAL: APP ---
 function App() {
   return (
     <div style={styles.body}>
-      <Navbar /> {/* <-- Olha a nossa Navbar aqui no topo! */}
+      <Navbar />
 
       <header id="inicio" style={styles.header}>
         <h1 style={styles.titulo}>Super Loterias API</h1>
@@ -77,13 +99,15 @@ function App() {
         <LoteriaCard nome="DUPLA SENA" sub="Sorteia 6 de 50" cor="#bf1923" qtd={6} max={50} />
         <LoteriaCard nome="DIA DE SORTE" sub="Sorteia 7 de 31" cor="#cb821c" qtd={7} max={31} />
       </main>
+
+      <Footer /> {/* <-- E aqui está o nosso Rodapé fechando o site! */}
     </div>
   );
 }
 
 // --- ESTILOS VISUAIS (CSS in JS) ---
 const styles = {
-  // Estilos da Navbar
+  // Navbar
   navbar: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#18181b', padding: '15px 40px', borderBottom: '1px solid #333', position: 'sticky', top: 0, zIndex: 100, boxShadow: '0 4px 10px rgba(0,0,0,0.5)' },
   logoContainer: { display: 'flex', alignItems: 'center', gap: '10px' },
   logoIcon: { fontSize: '1.8rem' },
@@ -91,8 +115,18 @@ const styles = {
   navLinks: { display: 'flex', gap: '20px' },
   link: { color: '#ccc', textDecoration: 'none', fontSize: '0.95rem', fontWeight: '500', transition: 'color 0.3s' },
 
-  // Restante dos estilos
-  body: { backgroundColor: '#0e0e10', minHeight: '100vh', padding: '0 0 40px 0', fontFamily: 'sans-serif', color: '#fff' },
+  // Footer
+  footer: { backgroundColor: '#121214', borderTop: '1px solid #333', marginTop: '60px', padding: '40px 20px', textAlign: 'center' },
+  footerContent: { maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '10px' },
+  footerTitle: { color: '#45f3ad', fontSize: '1.5rem', marginBottom: '10px' },
+  footerText: { color: '#aaa', fontSize: '1rem' },
+  footerTech: { color: '#888', fontSize: '0.9rem', fontStyle: 'italic', margin: '10px 0' },
+  contatoContainer: { marginTop: '20px', padding: '15px', backgroundColor: '#18181b', borderRadius: '8px', display: 'inline-block', alignSelf: 'center' },
+  footerContato: { color: '#ccc', marginBottom: '10px', fontSize: '0.9rem' },
+  emailBtn: { backgroundColor: '#20ac7b', color: '#fff', textDecoration: 'none', padding: '10px 20px', borderRadius: '5px', fontWeight: 'bold', fontSize: '0.9rem', display: 'inline-block' },
+
+  // Base
+  body: { backgroundColor: '#0e0e10', minHeight: '100vh', padding: '0', fontFamily: 'sans-serif', color: '#fff' },
   header: { textAlign: 'center', margin: '60px 0 50px 0', padding: '0 20px' },
   titulo: { fontSize: '3rem', color: '#45f3ad', fontWeight: '900', textShadow: '0 0 10px rgba(69, 243, 173, 0.3)', margin: '0 0 15px 0' },
   subtitulo: { color: '#aaa', lineHeight: '1.6', fontSize: '1.1rem' },
