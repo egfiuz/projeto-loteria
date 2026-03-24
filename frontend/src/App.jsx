@@ -29,7 +29,7 @@ const LoteriaCard = ({ nome, sub, cor, qtd, max }) => {
         )}
       </div>
 
-      <button onClick={gerarJogo} style={{ ...styles.btn, backgroundColor: cor }}>
+      <button onClick={gerarJogo} style={{ ...styles.btn, backgroundColor: cor, color: nome === 'TIMEMANIA' ? '#000' : '#fff' }}>
         Gerar Jogo Otimizado
       </button>
     </div>
@@ -48,10 +48,16 @@ function App() {
       </header>
 
       <main style={styles.grid}>
+        {/* Loterias originais e corrigidas */}
         <LoteriaCard nome="MEGA-SENA" sub="Sorteia 6 de 60" cor="#20ac7b" qtd={6} max={60} />
+        <LoteriaCard nome="LOTOFÁCIL" sub="Sorteia 15 de 25" cor="#d300b5" qtd={15} max={25} />
         <LoteriaCard nome="QUINA" sub="Sorteia 5 de 80" cor="#3b00a0" qtd={5} max={80} />
-        <LoteriaCard nome="TIMEMANIA" sub="Sorteia 10 de 80" cor="#00aa44" qtd={10} max={80} />
+        <LoteriaCard nome="TIMEMANIA" sub="Sorteia 10 de 80" cor="#ffcc00" qtd={10} max={80} /> {/* Agora é Amarelo! */}
+
+        {/* As novas adições do seu Backlog */}
         <LoteriaCard nome="LOTOMANIA" sub="Sorteia 50 de 100" cor="#ff8800" qtd={50} max={100} />
+        <LoteriaCard nome="DUPLA SENA" sub="Sorteia 6 de 50" cor="#bf1923" qtd={6} max={50} />
+        <LoteriaCard nome="DIA DE SORTE" sub="Sorteia 7 de 31" cor="#cb821c" qtd={7} max={31} />
       </main>
     </div>
   );
@@ -65,9 +71,9 @@ const styles = {
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '25px', maxWidth: '1200px', margin: '0 auto' },
   card: { backgroundColor: '#18181b', borderRadius: '12px', padding: '25px', textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' },
   numerosContainer: { minHeight: '120px', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '8px', margin: '20px 0' },
-  bola: { width: '35px', height: '35px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.9rem', color: '#fff' },
+  bola: { width: '35px', height: '35px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.9rem', color: '#fff', textShadow: '1px 1px 2px rgba(0,0,0,0.5)' },
   placeholder: { color: '#555', fontStyle: 'italic', fontSize: '0.85rem' },
-  btn: { padding: '15px', border: 'none', borderRadius: '8px', color: '#fff', fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem', transition: 'filter 0.2s' }
+  btn: { padding: '15px', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem', transition: 'filter 0.2s' }
 };
 
 export default App;
