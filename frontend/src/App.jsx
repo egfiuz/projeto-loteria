@@ -57,20 +57,48 @@ const LoteriaCard = ({ nome, sub, cor, qtd, max }) => {
 };
 
 // --- COMPONENTE: FOOTER (RODAPÉ) ---
+// --- COMPONENTE: FOOTER (RODAPÉ ATUALIZADO COM MONETIZAÇÃO) ---
 const Footer = () => {
   return (
     <footer id="contato" style={styles.footer}>
       <div style={styles.footerContent}>
         <h3 style={styles.footerTitle}>Super Loterias API</h3>
         <p style={styles.footerText}>
-          Desenvolvido com 💻 por <strong>Eliene Fiuza</strong> | Engenharia de Software Aplicada
+          Desenvolvido com 💻 por <strong>Eliene Gomes Fiuza</strong> | Engenharia de Software Aplicada
         </p>
         <p style={styles.footerTech}>
-          🛠️ Tecnologias Aplicadas: React, Vite, Node.js & Python (Backend API com IA Estatística)
+          🛠️ Tecnologias: React, Python (IA Estatística V3)
         </p>
+
+        {/* 💰 NOVO BLOCO AZUL: SISTEMA DE CONTRIBUIÇÃO (PIX) */}
+        <div style={styles.pixContainer}>
+          <h4 style={styles.pixTitle}>🚀 Apoie este Projeto!</h4>
+          <p style={styles.pixText}>
+            Se nossos números otimizados te ajudaram, considere pagar um café para a desenvolvedora
+            e ajudar a manter o servidor da IA online!
+          </p>
+
+          <div style={styles.pixDetails}>
+            {/* 📸 ÁREA DO QR CODE (Substitua a URL abaixo pelo seu QR Code real depois) */}
+            <div style={styles.qrPlaceholder}>
+              <img
+                src="/meu-pix.png"
+                alt="QR Code PIX Eliene Fiuza"
+                style={styles.qrImage}
+              />
+              <p style={{ fontSize: '0.7rem', color: '#888', marginTop: '5px' }}>Scan para doar</p>
+            </div>
+
+            {/* 🔑 CHAVE PIX TEXTUAL */}
+            <div style={styles.pixKeyBox}>
+              <p style={{ color: '#aaa', fontSize: '0.8rem' }}>Chave PIX (E-mail):</p>
+              <p style={styles.pixKey}>egfiuza@gmail.com</p> {/* <-- SUA CHAVE AQUI, CEO */}
+            </div>
+          </div>
+        </div>
+
         <div style={styles.contatoContainer}>
-          <p style={styles.footerContato}>📧 Contato direto com a CEO:</p>
-          <a href="mailto:egfiuza@gmail.com" style={styles.emailBtn}>egfiuza@gmail.com</a>
+          <a href="mailto:egfiuza@gmail.com" style={styles.emailBtn}>Contato Direto</a>
         </div>
       </div>
     </footer>
@@ -119,10 +147,24 @@ const styles = {
   footerTitle: { color: '#45f3ad', fontSize: '1.5rem', marginBottom: '10px' },
   footerText: { color: '#aaa', fontSize: '1rem' },
   footerTech: { color: '#888', fontSize: '0.9rem', fontStyle: 'italic', margin: '10px 0' },
+
+  // --- INÍCIO DA MONETIZAÇÃO PIX ---
+  footerTech: { color: '#888', fontSize: '0.9rem', fontStyle: 'italic', margin: '10px 0' },
+
+  // --- INÍCIO DA MONETIZAÇÃO PIX ---
+  pixContainer: { marginTop: '30px', padding: '20px', backgroundColor: '#18181b', borderRadius: '12px', border: '1px solid #333', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 4px 15px rgba(0,0,0,0.5)' },
+  pixTitle: { color: '#45f3ad', fontSize: '1.2rem', marginBottom: '10px' },
+  pixText: { color: '#bbb', fontSize: '0.9rem', maxWidth: '500px', marginBottom: '15px' },
+  pixDetails: { display: 'flex', alignItems: 'center', gap: '20px', backgroundColor: '#121214', padding: '15px', borderRadius: '8px', border: '1px solid #444' },
+  qrPlaceholder: { textAlign: 'center' },
+  qrImage: { width: '120px', height: '120px', border: '5px solid #fff', borderRadius: '4px' },
+  pixKeyBox: { textAlign: 'left' },
+  pixKey: { color: '#fff', fontSize: '1.1rem', fontWeight: 'bold', letterSpacing: '1px', padding: '5px 10px', backgroundColor: '#222', borderRadius: '4px', border: '1px solid #45f3ad', marginTop: '5px' },
+  // --- FIM DA MONETIZAÇÃO PIX ---
+
   contatoContainer: { marginTop: '20px', padding: '15px', backgroundColor: '#18181b', borderRadius: '8px', display: 'inline-block', alignSelf: 'center' },
   footerContato: { color: '#ccc', marginBottom: '10px', fontSize: '0.9rem' },
-  emailBtn: { backgroundColor: '#20ac7b', color: '#fff', textDecoration: 'none', padding: '10px 20px', borderRadius: '5px', fontWeight: 'bold', fontSize: '0.9rem', display: 'inline-block' },
-  body: { backgroundColor: '#0e0e10', minHeight: '100vh', padding: '0', fontFamily: 'sans-serif', color: '#fff' },
+  emailBtn: { backgroundColor: '#20ac7b', color: '#fff', textDecoration: 'none', padding: '10px 20px', borderRadius: '5px', fontWeight: 'bold', fontSize: '0.9rem', display: 'inline-block' }, body: { backgroundColor: '#0e0e10', minHeight: '100vh', padding: '0', fontFamily: 'sans-serif', color: '#fff' },
   header: { textAlign: 'center', margin: '60px 0 50px 0', padding: '0 20px' },
   titulo: { fontSize: '3rem', color: '#45f3ad', fontWeight: '900', textShadow: '0 0 10px rgba(69, 243, 173, 0.3)', margin: '0 0 15px 0' },
   subtitulo: { color: '#aaa', lineHeight: '1.6', fontSize: '1.1rem' },
