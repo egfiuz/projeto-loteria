@@ -242,4 +242,5 @@ const styles = {
   emailBtn: { backgroundColor: '#20ac7b', color: '#fff', textDecoration: 'none', padding: '10px 20px', borderRadius: '5px', fontWeight: 'bold', fontSize: '0.9rem', display: 'inline-block' }
 };
 
+
 export default App;
