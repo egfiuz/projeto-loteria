@@ -16,7 +16,9 @@ export default function AuthModal({ onClose }) {
         const payload = isLogin ? { email, senha } : { nome, email, senha };
 
         try {
-            const response = await fetch(`http://localhost:5000${endpoint}`, {
+            // AQUI ESTÁ A CORREÇÃO: Apontando para a API na nuvem!
+            const API_URL = "https://projeto-loteria-git-main-egfiuzas-projects.vercel.app";
+            const response = await fetch(`${API_URL}${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
