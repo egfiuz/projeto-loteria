@@ -31,26 +31,36 @@ const LoteriaCard = ({ nome, sub, cor, qtd, max }) => {
     if (!token) { alert("⚠️ Acesso Exclusivo VIP! Faça login."); return; }
 
     try {
+      // URL atualizada para o backend que está na nuvem
       const API_URL = "https://projeto-loteria-git-main-egfiuzas-projects.vercel.app";
       const resposta = await fetch(`${API_URL}/api/gerar?qtd=${qtd}&max=${max}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       });
-      const dados = await respuesta.json();
-      if (resposta.ok) setNumeros(dados.numeros);
-      else alert(dados.erro);
-    } catch (e) { alert("Erro de conexão com o servidor."); }
+      const dados = await resposta.json();
+      if (resposta.ok) {
+        setNumeros(dados.numeros);
+      } else {
+        alert(dados.erro);
+      }
+    } catch (e) {
+      alert("O servidor Python está processando muitas requisições. Tente novamente em instantes!");
+    }
   };
 
   return (
     <div style={{ ...styles.card, borderTop: `5px solid ${cor}` }}>
-      <h2 style={{ color: cor, margin: '10px 0' }}>{nome}</h2>
+      <h2 style={{ color: cor, margin: '10px 0', fontWeight: 'bold' }}>{nome}</h2>
       <p style={styles.cardSub}>{sub}</p>
       <div style={styles.numerosContainer}>
         {numeros.length > 0 ? numeros.map((n, i) => (
           <span key={i} style={{ ...styles.bola, backgroundColor: cor }}>{n < 10 ? `0${n}` : n}</span>
         )) : <p style={styles.placeholder}>Nenhum jogo gerado ainda.<br />Clique no botão abaixo.</p>}
       </div>
-      <button onClick={gerarJogo} style={{ ...styles.btn, backgroundColor: cor, color: '#fff' }}>
+      <button onClick={gerarJogo} style={{ ...styles.btn, backgroundColor: cor, color: nome === 'TIMEMANIA' ? '#000' : '#fff' }}>
         Gerar Jogo Otimizado
       </button>
     </div>
@@ -66,11 +76,17 @@ function App() {
     if (nome) setUsuarioLogado(nome);
   }, []);
 
+  const fazerLogout = () => {
+    localStorage.clear();
+    setUsuarioLogado(null);
+    window.location.reload();
+  };
+
   return (
     <div style={styles.body}>
-      <Navbar usuarioLogado={usuarioLogado} fazerLogout={() => { localStorage.clear(); setUsuarioLogado(null); }} abrirModal={() => setShowAuthModal(true)} />
+      <Navbar usuarioLogado={usuarioLogado} fazerLogout={fazerLogout} abrirModal={() => setShowAuthModal(true)} />
 
-      <header style={styles.header}>
+      <header id="inicio" style={styles.header}>
         <h1 style={styles.titulo}>Super Loterias API</h1>
         <p style={styles.subtitulo}>Gere combinações numéricas otimizadas via Força Bruta aliada a Filtros Estatísticos de Alta Performance.</p>
       </header>
@@ -84,7 +100,7 @@ function App() {
         <LoteriaCard nome="DUPLA SENA" sub="Sorteia 6 de 50" cor="#bf0000" qtd={6} max={50} />
         <LoteriaCard nome="DIA DE SORTE" sub="Sorteia 7 de 31" cor="#cb9300" qtd={7} max={31} />
 
-        <section style={styles.infoSection}>
+        <section id="teoremas" style={styles.infoSection}>
           <h3 style={styles.infoTitle}>Do código à realidade: Super Loterias API</h3>
           <p>Desenvolvi este sistema integrando um 'Cérebro' em Python para análise de dados estatísticos com um frontend moderno em React. O objetivo foi aplicar conceitos de Arquitetura MVC e Engenharia de Software para transformar palpites aleatórios em escolhas baseadas em dados.</p>
           <p>Utilizamos a Lei dos Grandes Números e filtros de alta performance para processar os sorteios históricos, garantindo que cada combinação gerada siga padrões matemáticos reais de frequência e distribuição.</p>
@@ -92,7 +108,7 @@ function App() {
         </section>
       </main>
 
-      <footer style={styles.footer}>
+      <footer id="contato" style={styles.footer}>
         <p><strong>Super Loterias API</strong></p>
         <p>Desenvolvido com 💻 por Eliene Gomes Fiuza | Engenharia de Software Aplicada</p>
         <p>Tecnologias: React, Python (IA Estatística V3)</p>
@@ -108,27 +124,31 @@ function App() {
 }
 
 const styles = {
-  body: { backgroundColor: '#0e0e10', color: '#fff', fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif' },
-  navbar: { display: 'flex', justifyContent: 'space-between', padding: '15px 5%', backgroundColor: '#18181b', borderBottom: '1px solid #333' },
+  body: { backgroundColor: '#0e0e10', color: '#fff', fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif', margin: 0, padding: 0 },
+  navbar: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 5%', backgroundColor: '#18181b', borderBottom: '1px solid #333', position: 'sticky', top: 0, zIndex: 100 },
+  logoContainer: { display: 'flex', alignItems: 'center' },
+  logoIcon: { fontSize: '1.8rem' },
   logoText: { fontSize: '1.5rem', fontWeight: 'bold', color: '#45f3ad', marginLeft: '10px' },
-  navLinks: { display: 'flex', gap: '20px', alignItems: 'center' },
-  link: { color: '#bbb', textDecoration: 'none' },
+  navLinks: { display: 'flex', gap: '25px', alignItems: 'center' },
+  link: { color: '#bbb', textDecoration: 'none', fontSize: '0.9rem', fontWeight: '500' },
+  userSection: { color: '#45f3ad', fontWeight: 'bold', fontSize: '0.9rem' },
+  btnLogout: { background: 'none', border: 'none', color: '#ff4d4d', cursor: 'pointer', marginLeft: '10px', textDecoration: 'underline' },
   btnVip: { backgroundColor: '#45f3ad', color: '#000', border: 'none', padding: '8px 20px', borderRadius: '5px', fontWeight: 'bold', cursor: 'pointer' },
-  header: { textAlign: 'center', padding: '60px 20px' },
-  titulo: { fontSize: '3.5rem', marginBottom: '10px' },
-  subtitulo: { fontSize: '1.2rem', color: '#aaa', maxWidth: '800px', margin: '0 auto' },
-  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px', padding: '0 5% 60px 5%' },
-  card: { backgroundColor: '#18181b', padding: '30px', borderRadius: '15px', textAlign: 'center', transition: '0.3s' },
-  cardSub: { color: '#888', marginBottom: '20px' },
-  numerosContainer: { minHeight: '100px', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px', marginBottom: '20px' },
-  bola: { width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' },
-  placeholder: { color: '#555', fontSize: '0.9rem' },
-  btn: { width: '100%', padding: '12px', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer' },
-  infoSection: { gridColumn: '1 / -1', backgroundColor: '#18181b', padding: '40px', borderRadius: '15px', borderLeft: '5px solid #45f3ad', lineHeight: '1.8', color: '#ccc' },
-  infoTitle: { color: '#45f3ad', fontSize: '1.8rem', marginBottom: '20px' },
-  footer: { textAlign: 'center', padding: '50px', backgroundColor: '#0a0a0c', borderTop: '1px solid #333' },
-  pixBox: { marginTop: '30px', padding: '20px', border: '1px dashed #45f3ad', borderRadius: '10px', display: 'inline-block' },
-  pixKey: { color: '#45f3ad', fontWeight: 'bold', fontSize: '1.2rem', marginTop: '10px' }
+  header: { textAlign: 'center', padding: '80px 20px' },
+  titulo: { fontSize: '3.5rem', marginBottom: '10px', color: '#45f3ad', fontWeight: '900' },
+  subtitulo: { fontSize: '1.2rem', color: '#aaa', maxWidth: '800px', margin: '0 auto', lineHeight: '1.6' },
+  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px', padding: '0 5% 60px 5%', maxWidth: '1400px', margin: '0 auto' },
+  card: { backgroundColor: '#18181b', padding: '30px', borderRadius: '15px', textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' },
+  cardSub: { color: '#888', marginBottom: '20px', fontSize: '0.9rem' },
+  numerosContainer: { minHeight: '120px', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px', marginBottom: '20px', alignItems: 'center' },
+  bola: { width: '42px', height: '42px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#000', fontSize: '1rem' },
+  placeholder: { color: '#555', fontSize: '0.9rem', fontStyle: 'italic' },
+  btn: { width: '100%', padding: '15px', border: 'none', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem', transition: '0.2s' },
+  infoSection: { gridColumn: '1 / -1', backgroundColor: '#18181b', padding: '40px', borderRadius: '15px', borderLeft: '5px solid #45f3ad', lineHeight: '1.8', color: '#ccc', marginTop: '20px' },
+  infoTitle: { color: '#45f3ad', fontSize: '1.8rem', marginBottom: '20px', fontWeight: 'bold' },
+  footer: { textAlign: 'center', padding: '60px 20px', backgroundColor: '#0a0a0c', borderTop: '1px solid #333' },
+  pixBox: { marginTop: '30px', padding: '25px', border: '1px dashed #45f3ad', borderRadius: '15px', display: 'inline-block', backgroundColor: '#111' },
+  pixKey: { color: '#45f3ad', fontWeight: 'bold', fontSize: '1.3rem', marginTop: '10px' }
 };
 
 export default App;
