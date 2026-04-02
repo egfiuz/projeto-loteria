@@ -183,15 +183,15 @@ function App() {
         <LoteriaCard nome="DIA DE SORTE" sub="Sorteia 7 de 31" cor="#cb821c" qtd={7} max={31} />
 
         <div style={styles.projetoTextoContainer}>
-          <h4 style={styles.projetoTextoTitulo}>Otimize com Inteligência Estatística</h4>
+          <h4 style={styles.projetoTextoTitulo}>Do código à realidade: Super Loterias API</h4>
           <p style={styles.projetoTextoParagrafo}>
-            Este sistema possui uma <strong>Arquitetura MVC</strong> completa, com um <strong>Cérebro em Python</strong> rodando na nuvem e um <strong>Frontend Responsivo</strong> em React.
+            Desenvolvi este sistema integrando um <strong>'Cérebro' em Python</strong> para análise de dados estatísticos com um frontend moderno em React. O objetivo foi aplicar conceitos de <strong>Arquitetura MVC</strong> e Engenharia de Software para transformar palpites aleatórios em escolhas baseadas em dados.
           </p>
           <p style={styles.projetoTextoParagrafo}>
-            Ele não dá garantias de ganho, mas oferece uma <strong>estratégia estatística</strong> baseada na <strong>Lei dos Grandes Números</strong>.
+            Utilizamos a <strong>Lei dos Grandes Números</strong> e filtros de alta performance para processar os sorteios históricos, garantindo que cada combinação gerada siga padrões matemáticos reais de frequência e distribuição.
           </p>
           <p style={{ ...styles.projetoTextoParagrafo, marginBottom: 0 }}>
-            Utilizamos a <strong>Análise Matemática</strong> para ler a frequência real dos sorteios históricos. O Super Loterias API permite que você jogue com dados, não com palpites aleatórios. Otimize seus jogos com inteligência! 📊🧠
+            Este projeto é o resultado de muito estudo na FATEC e prática em desenvolvimento Full Stack. Otimize seus jogos com inteligência e veja a tecnologia trabalhando a seu favor! 📊🧠
           </p>
         </div>
       </main>
@@ -241,8 +241,5 @@ const styles = {
   contatoContainer: { marginTop: '20px', padding: '15px', backgroundColor: '#18181b', borderRadius: '8px', display: 'inline-block', alignSelf: 'center' },
   emailBtn: { backgroundColor: '#20ac7b', color: '#fff', textDecoration: 'none', padding: '10px 20px', borderRadius: '5px', fontWeight: 'bold', fontSize: '0.9rem', display: 'inline-block' }
 };
-
-
-
 
 export default App;
